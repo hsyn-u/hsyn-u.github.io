@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hüseyin Ulukuz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #494e52;
+            --link-color: #52adc8;
+            --link-hover: #1756a9;
+            --sidebar-bg: #f2f3f3;
+            --text-color: #494e52;
+            --border-color: #d3d3d3;
+            --tab-active: #52adc8;
+        }
+
+        body {
+            font-family: 'PT Sans', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background: #fff;
+        }
+
+        .wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--sidebar-bg);
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .author-avatar {
+            width: 200px;
+            height: 200px;
+            background: #d3d3d3;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #7a8288;
+        }
+
+        .author-content {
+            text-align: center;
+        }
+
+        .author-content h3 {
+            font-family: 'PT Serif', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .author-content .bio {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #7a8288;
+            margin-bottom: 1rem;
+        }
+
+        .author-links {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .author-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .author-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .author-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            background: #fff;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tabs-nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tabs-nav li {
+            flex: 1;
+        }
+
+        .tabs-nav button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tabs-nav button:hover {
+            background: #f9f9f9;
+            color: var(--link-color);
+        }
+
+        .tabs-nav button.active {
+            color: var(--tab-active);
+            border-bottom-color: var(--tab-active);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 3rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'PT Serif', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-family: 'PT Serif', serif;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-family: 'PT Serif', serif;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 700;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        /* Archive items */
+        .archive-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f2f3f3;
+        }
+
+        .archive-item:last-child {
+            border-bottom: none;
+        }
+
+        .archive-item h3 {
+            margin-top: 0;
+        }
+
+        .archive-item-meta {
+            font-size: 0.85rem;
+            color: #7a8288;
+            margin-bottom: 0.5rem;
+        }
+
+        .archive-item-excerpt {
+            font-size: 0.95rem;
+            color: #494e52;
+        }
+
+        /* Lists */
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Publication list */
+        .publication-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .publication-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .publication-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--link-color);
+            font-weight: bold;
+        }
+
+        /* Notice boxes */
+        .notice {
+            background: #f2f3f3;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--link-color);
+        }
+
+        .notice p {
+            margin-bottom: 0;
+        }
+
+        /* Skills/tags */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tag {
+            background: #f2f3f3;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+            border-radius: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                height: auto;
+            }
+
+            .tabs-nav ul {
+                flex-wrap: wrap;
+            }
+
+            .tabs-nav li {
+                flex: 1 1 50%;
+            }
+
+            .tab-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tabs-nav li {
+                flex: 1 1 100%;
+            }
+
+            .tabs-nav button {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="author-content">
+                <img src="profile.jpg" alt="Hüseyin Ulukuz" class="author-avatar"
+                    style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; object-position: top;">
+
+                <h3>Hüseyin Ulukuz</h3>
+                <p class="bio">AI Policy Coordinator<br>Ministry of Education, Türkiye</p>
+
+                <ul class="author-links">
+                    <li>
+                        <a href="mailto:huseyin.ulukuz@hotmail.com">
+                            <span>📧</span> Email
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/huseyinulukuz" target="_blank">
+                            <span>🔗</span> LinkedIn
+                        </a>
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Tabs Navigation -->
+            <nav class="tabs-nav">
+                <ul>
+                    <li><button class="tab-btn active" data-tab="about">ABOUT</button></li>
+                    <li><button class="tab-btn" data-tab="research">RESEARCH</button></li>
+                    <li><button class="tab-btn" data-tab="publications">PUBLICATIONS</button></li>
+                    <li><button class="tab-btn" data-tab="talks">TALKS</button></li>
+                    <li><button class="tab-btn" data-tab="experience">EXPERIENCE</button></li>
+                    <li><button class="tab-btn" data-tab="cv">CV</button></li>
+                </ul>
+            </nav>
+
+            <!-- Tab Contents -->
+            <div id="about" class="tab-content active">
+                <h1>About</h1>
+
+                <p>I am an AI Policy Coordinator at the Ministry of Education in Türkiye, where I lead strategic
+                    initiatives on artificial intelligence integration in national education systems. My work focuses on
+                    developing ethical frameworks and policy documents that guide responsible AI adoption in educational
+                    contexts.</p>
+
+                <p>I explore how emerging technologies—such as augmented reality (AR), mobile learning, and artificial
+                    intelligence (AI)—can foster participatory and personalized learning experiences. My research lies
+                    at the intersection of educational technology, digital media, and learning sciences, particularly
+                    within informal and formal learning environments.</p>
+
+                <p>I received my Ph.D. in Educational Technology from the University of Manchester in 2022, where my
+                    dissertation examined crafting participatory experiences in the Web 2.0 era. I also hold an M.Sc. in
+                    Educational Technology (Digital Technologies, Communication and Education) from the same
+                    institution, and a B.Sc. in Electrical and Electronics Engineering from Ankara University.</p>
+
+                <div class="notice">
+                    <p><strong>Research Interests:</strong> Web 2.0 Technologies for Learning • Mobile Learning •
+                        Informal Learning Environments • Participatory Learning • Personalized Learning Environments •
+                        Artificial Intelligence in Education • Learning Analytics • Augmented Reality in Education</p>
+                </div>
+
+                <h2>Education</h2>
+
+                <div class="archive-item">
+                    <h3>Ph.D. in Educational Technology</h3>
+                    <p class="archive-item-meta">University of Manchester, United Kingdom | September 2017 - January
+                        2022</p>
+                    <p class="archive-item-excerpt"><strong>Dissertation:</strong> Crafting Participatory Experiences in
+                        the Web 2.0 Era</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>M.Sc. in Educational Technology</h3>
+                    <p class="archive-item-meta">University of Manchester, United Kingdom | September 2015 - October
+                        2016</p>
+                    <p class="archive-item-excerpt"><strong>Thesis:</strong> Use of Augmented Reality in Museums: The
+                        Relationship between Children's Engagement and Immersive Visitor Experience<br><em>Graduated
+                            with Distinction (74/100)</em></p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>B.Sc. in Electrical and Electronics Engineering</h3>
+                    <p class="archive-item-meta">Ankara University, Türkiye | September 2009 - June 2013</p>
+                    <p class="archive-item-excerpt">GPA: 3.24 / 4.00<br><strong>Thesis:</strong> Implementation of Video
+                        Compression Algorithms Using MATLAB</p>
+                </div>
+            </div>
+
+            <div id="research" class="tab-content">
+                <h1>Current Research & Projects</h1>
+
+                <div class="archive-item">
+                    <h3>AI in Education Policy Document and Action Plan (2025-2029)</h3>
+                    <p class="archive-item-meta">Ministry of National Education, Türkiye | March 2025 - July 2025</p>
+                    <p class="archive-item-excerpt">Led the development of Türkiye's national AI in Education Policy
+                        Document and Action Plan (2025-2029) in both Turkish and English, defining strategic priorities
+                        for AI integration into national education systems. This comprehensive framework guides the
+                        responsible implementation of AI technologies across all educational levels.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>AI Ethics Recommendations Booklet</h3>
+                    <p class="archive-item-meta">Ministry of National Education, Türkiye | October 2025</p>
+                    <p class="archive-item-excerpt">Co-authored (as one of two main authors) comprehensive AI ethics
+                        guidelines for multiple stakeholder groups—including students, teachers, parents, senior
+                        leadership, and AI developers. The booklet provides practical guidance to support responsible
+                        and ethical use of AI in education, available in both Turkish and English.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Child-Centered Language Learning Platform</h3>
+                    <p class="archive-item-meta">Ministry of National Education, Türkiye | January 2024 - February 2025
+                    </p>
+                    <p class="archive-item-excerpt">Developed a pedagogically grounded, child-centered dashboard for a
+                        forthcoming language learning platform. The design was specifically tailored to meet the
+                        cognitive, developmental, and interactional characteristics of children aged 7-11, with emphasis
+                        on visual clarity, intuitive navigation, and sustained user engagement.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>International Policy Engagement</h3>
+                    <p class="archive-item-meta">2025</p>
+                    <p class="archive-item-excerpt">Represented Türkiye at major international forums including the OECD
+                        8th Global Forum on the Future of Education and Skills and BratislavAI 2025 (Bratislava,
+                        Slovakia), the Council of Europe "Education and Artificial Intelligence Compass" Working
+                        Conference (Strasbourg, France), and the Shanghai Cooperation Organisation Digital Economy Forum
+                        (Tianjin, China).</p>
+                </div>
+
+                <h2>Research Interests</h2>
+                <ul>
+                    <li>Web 2.0 Technologies for Learning</li>
+                    <li>Mobile Learning and Informal Learning Environments</li>
+                    <li>Participatory and Personalized Learning Experiences</li>
+                    <li>Artificial Intelligence in Education</li>
+                    <li>Learning Analytics and Educational Data Science</li>
+                    <li>Augmented Reality in Educational Contexts</li>
+                    <li>Child-Computer Interaction in Learning Environments</li>
+                </ul>
+            </div>
+
+            <div id="publications" class="tab-content">
+                <h1>Publications</h1>
+
+                <h2>Journal Articles</h2>
+
+                <ul class="publication-list">
+                    <li>
+                        <strong>Ulukuz, H.</strong>, & Dinç, E. (in progress). Immersion and interaction in children's
+                        informal learning with augmented reality.
+                    </li>
+                </ul>
+
+                <h2>Book Chapters</h2>
+
+                <ul class="publication-list">
+                    <li>
+                        <strong>Ulukuz, H.</strong> (2024). The new role of teachers in the age of Web 3.0: Personalized
+                        learning environments through learning analytics. In <em>Current studies in data science and
+                            analytics</em> (pp. 20-27). ISRES Publications.
+                    </li>
+                    <li>
+                        Canlı, M., <strong>Ulukuz, H.</strong>, Ozden, Z. & Dinç, E. (Accepted, will be published May
+                        2026). AI Applications in education. In <em>Artificial Intelligence and National Technology
+                            Reflections</em> (pp. 1-28). Turkish Academy of Sciences (TUBA).
+                    </li>
+                </ul>
+
+                <h2>Policy Documents</h2>
+
+                <ul class="publication-list">
+                    <li>
+                        Republic of Türkiye Ministry of National Education (2025). <em>Artificial Intelligence in
+                            Education Policy Document and Action Plan (2025-2029)</em>. Ankara: Ministry of National
+                        Education. [Available in Turkish and English]
+                    </li>
+                    <li>
+                        Republic of Türkiye Ministry of National Education (2025). <em>Artificial Intelligence Ethics
+                            Recommendations Booklet</em>. Ankara: Ministry of National Education. [Available in Turkish
+                        and English]
+                    </li>
+                </ul>
+
+                <h2>Theses</h2>
+
+                <ul class="publication-list">
+                    <li>
+                        <strong>Ulukuz, H.</strong> (2022). <em>Crafting Participatory Experiences in the Web 2.0
+                            Era</em> [Doctoral dissertation, University of Manchester].
+                    </li>
+                    <li>
+                        <strong>Ulukuz, H.</strong> (2016). <em>Use of Augmented Reality in Museums: The Relationship
+                            between Children's Engagement and Immersive Visitor Experience</em> [Master's thesis,
+                        University of Manchester].
+                    </li>
+                </ul>
+            </div>
+
+            <div id="talks" class="tab-content">
+                <h1>Conference Presentations & Invited Talks</h1>
+
+                <h2>2025</h2>
+
+                <div class="archive-item">
+                    <h3>Learning Analytics and AI-Based Systems in Learning Environments</h3>
+                    <p class="archive-item-meta">Shanghai Cooperation Organisation (SCO) Digital Economy Forum |
+                        Tianjin, China | July 2025</p>
+                    <p class="archive-item-excerpt">Delivered a theoretical seminar to approximately 200 participants,
+                        representing the Republic of Türkiye Ministry of National Education and highlighting the
+                        Ministry's AI initiatives and projects.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>The Impact of Artificial Intelligence and Digitalisation on Education</h3>
+                    <p class="archive-item-meta">AI4MediaEdu Summit, Istanbul University | İstanbul, Türkiye | 2025</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>The Ministry of National Education's AI Vision and Practices</h3>
+                    <p class="archive-item-meta">Kocaeli Metropolitan Municipality – Kocaeli Informatics Fair | Kocaeli,
+                        Türkiye | 2025</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Ministry of National Education's AI Vision and Ethical Principles</h3>
+                    <p class="archive-item-meta">AI in Education – Kastamonu Meeting (SOGEP) | Kastamonu, Türkiye | 2025
+                    </p>
+                </div>
+
+                <h2>2021</h2>
+
+                <div class="archive-item">
+                    <h3>How Participatory Experience Looks Like in the 21st Century</h3>
+                    <p class="archive-item-meta">SEED PGR Conference | University of Manchester, United Kingdom | 2021
+                    </p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Use of Mobile Technologies in Learning Environments: The Relationship between Digital Tools and
+                        Participatory Experience</h3>
+                    <p class="archive-item-meta">Kaleidoscope Conference | University of Cambridge, United Kingdom |
+                        2021</p>
+                </div>
+
+                <h2>2019</h2>
+
+                <div class="archive-item">
+                    <h3>Use of Digital Technologies for Participatory Experience within Personalized Learning
+                        Environments</h3>
+                    <p class="archive-item-meta">Stories Conference | University of Oxford, United Kingdom | 2019</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>The Relationship between Use of Augmented Reality Technologies and Participatory Learning
+                        Experience</h3>
+                    <p class="archive-item-meta">SEED PGR Conference | University of Manchester, United Kingdom | 2019
+                    </p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Use of Digital Technologies for Personalized Learning Environments</h3>
+                    <p class="archive-item-meta">CES Conference | University of Warwick, United Kingdom | 2019</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Use of Mobile Technologies in Museums: The Relationship between Digital Tools and Participatory
+                        Learning Experience</h3>
+                    <p class="archive-item-meta">Kaleidoscope Conference | University of Cambridge, United Kingdom |
+                        2019</p>
+                </div>
+
+                <h2>Expert Seminars & Workshops</h2>
+
+                <div class="archive-item">
+                    <h3>Learning Analytics and AI Policy in Education</h3>
+                    <p class="archive-item-meta">Ministry of National Education | Ankara, Türkiye | July 2025, January
+                        2026</p>
+                    <p class="archive-item-excerpt">Delivered expert seminars to newly appointed career specialists
+                        within the Ministry, building foundational knowledge in educational data use and policy
+                        implementation.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>AI With Youth: Workshops, Ideas, and Applications</h3>
+                    <p class="archive-item-meta">National Youth Initiative | Türkiye | July 2025</p>
+                    <p class="archive-item-excerpt">Invited to deliver interactive training sessions on educational
+                        technologies, learning analytics, and AI literacy for high school and undergraduate students,
+                        fostering curiosity and early digital competence among youth.</p>
+                </div>
+            </div>
+
+            <div id="experience" class="tab-content">
+                <h1>Professional Experience</h1>
+
+                <div class="archive-item">
+                    <h3>AI Policy Coordinator</h3>
+                    <p class="archive-item-meta">Department of Artificial Intelligence and Big Data
+                        Applications<br>Directorate General for Innovation and Educational Technologies<br>Ministry of
+                        Education, Türkiye | May 2025 - Present</p>
+                    <p class="archive-item-excerpt">Leading national AI policy development, strategic planning, and
+                        international collaboration efforts. Developing comprehensive frameworks for ethical AI
+                        integration in education. Representing Türkiye at international forums including OECD, Council
+                        of Europe, and Shanghai Cooperation Organisation events.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Education Specialist</h3>
+                    <p class="archive-item-meta">Department of System Development and Management<br>Directorate General
+                        for Innovation and Educational Technologies<br>Ministry of Education, Türkiye | October 2023 -
+                        Present</p>
+                    <p class="archive-item-excerpt">Contributing to educational system development and management
+                        initiatives, focusing on technology integration and innovation in national education systems.
+                    </p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Research/Teaching Assistant</h3>
+                    <p class="archive-item-meta">Educational Technologies Master's Program, Faculty of
+                        Humanities<br>University of Manchester | Manchester, United Kingdom | 2019 - 2022</p>
+                    <p class="archive-item-excerpt">Taught and supported graduate-level courses including:<br>
+                        • Big Data in Education (EDUC71221) - Fall 2019<br>
+                        • Research Methods II (EDUC71272) - Spring 2020<br>
+                        • AI Perspectives on Learning (EDUC71242) - Spring 2020<br>
+                        • Research Methods I (EDUC70441) - Fall 2020<br>
+                        • Educational Technology and Communication (EDUC70141) - Fall 2021<br>
+                        • Educating for Sustainability (EDUC71212) - Spring 2022</p>
+                </div>
+
+                <h2>Skills</h2>
+
+                <h3>Programming & Data Analysis</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">MATLAB (Advanced)</span>
+                    <span class="skill-tag">C++ (Advanced)</span>
+                    <span class="skill-tag">Python (Intermediate)</span>
+                    <span class="skill-tag">SPSS (Intermediate)</span>
+                    <span class="skill-tag">R Studio (Elementary)</span>
+                </div>
+
+                <h3>Web & AR Development</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML (Intermediate)</span>
+                    <span class="skill-tag">CSS (Elementary)</span>
+                    <span class="skill-tag">JavaScript (Elementary)</span>
+                    <span class="skill-tag">Unity (Elementary)</span>
+                    <span class="skill-tag">ARKit (Intermediate)</span>
+                </div>
+
+                <h3>Design & Multimedia</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Filmora (Advanced)</span>
+                    <span class="skill-tag">CorelDraw (Intermediate)</span>
+                    <span class="skill-tag">Office Suite (Advanced)</span>
+                </div>
+
+                <h3>Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Turkish (Native)</span>
+                    <span class="skill-tag">English (Full Professional Proficiency)</span>
+                </div>
+
+                <h2>Grants & Awards</h2>
+
+                <div class="archive-item">
+                    <h3>YLSY Scholarship</h3>
+                    <p class="archive-item-meta">Ministry of National Education, Türkiye | 2014 - 2023</p>
+                    <p class="archive-item-excerpt">Fully funded scholarship for graduate education abroad, covering
+                        Ph.D. and M.Sc. studies at the University of Manchester.</p>
+                </div>
+
+                <h2>Volunteer & Service</h2>
+
+                <div class="archive-item">
+                    <h3>AI With Youth: Workshops, Ideas, and Applications</h3>
+                    <p class="archive-item-meta">National Youth Initiative, Türkiye | July 2025</p>
+                    <p class="archive-item-excerpt">Delivered interactive training sessions on educational technologies,
+                        learning analytics, and AI literacy to high school and undergraduate students, fostering
+                        awareness and responsible engagement with AI technologies.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Street Buddies Manchester</h3>
+                    <p class="archive-item-meta">Manchester, United Kingdom | 2020 - 2021</p>
+                    <p class="archive-item-excerpt">Volunteered in evening outreach work to support the homeless,
+                        especially during cold winter nights and the COVID-19 pandemic, distributing essentials like
+                        food, warm drinks, and clothing while fostering trust and dignity through compassionate
+                        engagement.</p>
+                </div>
+
+                <div class="archive-item">
+                    <h3>Manchester Coffee Festival</h3>
+                    <p class="archive-item-meta">Manchester, United Kingdom | 2019 & 2021</p>
+                    <p class="archive-item-excerpt">Volunteered at the UK North's biggest celebration of coffee, helping
+                        with event coordination, guest guidance, and supporting local roasters and baristas.</p>
+                </div>
+            </div>
+
+            <div id="cv" class="tab-content">
+                <h1>Curriculum Vitae</h1>
+
+                <p>You can download my full CV in PDF format or view my comprehensive profile on LinkedIn.</p>
+
+                <div style="margin-top: 2rem;">
+                    <p><strong>Download:</strong> <a href="#">Curriculum Vitae (PDF)</a></p>
+                    <p><strong>Online:</strong> <a href="https://www.linkedin.com/in/huseyinulukuz"
+                            target="_blank">LinkedIn Profile</a></p>
+                </div>
+
+                <div class="notice" style="margin-top: 2rem;">
+                    <p><strong>Contact Information</strong></p>
+                    <p>
+                        Email: <a href="mailto:huseyin.ulukuz@hotmail.com">huseyin.ulukuz@hotmail.com</a><br>
+                        Phone: <a href="tel:+905326795984">+90 532 679 5984</a><br>
+                        LinkedIn: <a href="https://www.linkedin.com/in/huseyinulukuz"
+                            target="_blank">linkedin.com/in/huseyinulukuz</a>
+                    </p>
+                </div>
+
+                <h2>Quick Summary</h2>
+
+                <p><strong>Current Position:</strong> AI Policy Coordinator at the Ministry of Education, Türkiye</p>
+
+                <p><strong>Education:</strong></p>
+                <ul>
+                    <li>Ph.D. in Educational Technology, University of Manchester (2022)</li>
+                    <li>M.Sc. in Educational Technology, University of Manchester (2016, Distinction)</li>
+                    <li>B.Sc. in Electrical and Electronics Engineering, Ankara University (2013)</li>
+                </ul>
+
+                <p><strong>Research Interests:</strong> AI in Education, Learning Analytics, Participatory Learning,
+                    Augmented Reality, Mobile Learning, Personalized Learning Environments</p>
+
+                <p><strong>Key Contributions:</strong></p>
+                <ul>
+                    <li>Led development of Türkiye's AI in Education Policy Document and Action Plan (2025-2029)</li>
+                    <li>Co-authored AI Ethics Recommendations Booklet for education stakeholders</li>
+                    <li>Represented Türkiye at OECD, Council of Europe, and SCO international forums</li>
+                    <li>Published research on learning analytics, AI applications, and AR in education</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.getAttribute('data-tab');
+
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+
+                // Scroll to top of content
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+
+</html>
