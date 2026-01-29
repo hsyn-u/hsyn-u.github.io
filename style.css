@@ -67,6 +67,12 @@ a:hover {
     object-position: top;
     margin-bottom: 1rem;
     border: 2px solid var(--border-color);
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-img:hover {
+    content: url('picture2.jpeg');
 }
 
 .sidebar h1 {
