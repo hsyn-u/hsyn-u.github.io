@@ -1,19 +1,21 @@
-/* Global Styles - Minimal Academic Design */
+/* Global Styles - AI/Tech Theme */
 :root {
-    /* Colors - Clean and minimal */
-    --bg-color: #ffffff;
-    --sidebar-bg: #f8f9fa;
-    --text-primary: #111111;
-    --text-secondary: #6c757d;
-    --link-color: #0066cc;
-    --link-hover: #004499;
-    --border-color: #e9ecef;
+    /* AI-inspired colors */
+    --bg-color: #0a0e27;
+    --sidebar-bg: linear-gradient(180deg, #0f1729 0%, #1a1f3a 100%);
+    --text-primary: #e8eaf6;
+    --text-secondary: #9fa8da;
+    --link-color: #00e5ff;
+    --link-hover: #69f0ae;
+    --border-color: #1e2a4a;
+    --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glow-color: rgba(0, 229, 255, 0.3);
 
     /* Layout */
     --sidebar-width: 250px;
 
-    /* Typography - System font stack */
-    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* Typography - Modern tech stack */
+    --font-main: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -25,27 +27,46 @@
 body {
     font-family: var(--font-main);
     color: var(--text-primary);
-    background-color: var(--bg-color);
+    background: var(--bg-color);
     line-height: 1.6;
     display: flex;
     min-height: 100vh;
     font-size: 16px;
+    position: relative;
+}
+
+/* Subtle grid background for tech feel */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
 }
 
 a {
     text-decoration: none;
     color: var(--link-color);
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 a:hover {
     color: var(--link-hover);
+    text-shadow: 0 0 10px var(--glow-color);
 }
 
 /* Sidebar */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: var(--sidebar-bg);
+    background: var(--sidebar-bg);
     height: 100vh;
     position: fixed;
     top: 0;
@@ -55,6 +76,7 @@ a:hover {
     align-items: center;
     padding: 2rem 1.5rem;
     border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 20px rgba(0, 229, 255, 0.1);
     z-index: 1000;
     overflow-y: auto;
 }
@@ -66,13 +88,18 @@ a:hover {
     object-fit: cover;
     object-position: top;
     margin-bottom: 1rem;
-    border: 2px solid var(--border-color);
-    transition: opacity 0.3s ease;
+    border: 3px solid transparent;
+    background: var(--accent-gradient);
+    padding: 3px;
+    transition: all 0.4s ease;
     cursor: pointer;
+    box-shadow: 0 0 20px var(--glow-color);
 }
 
 .profile-img:hover {
     content: url('picture2.jpeg');
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
 }
 
 .sidebar h1 {
@@ -81,6 +108,7 @@ a:hover {
     text-align: center;
     color: var(--text-primary);
     margin-bottom: 0.25rem;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
 }
 
 .sidebar .role {
@@ -88,7 +116,7 @@ a:hover {
     text-align: center;
     color: var(--text-secondary);
     margin-bottom: 2rem;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 .nav-links {
@@ -108,11 +136,16 @@ a:hover {
     text-align: left;
     font-weight: 400;
     font-size: 0.95rem;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--link-color);
+    border-left-color: var(--link-color);
+    background: rgba(0, 229, 255, 0.05);
+    text-shadow: none;
 }
 
 .lang-switch {
@@ -127,12 +160,15 @@ a:hover {
     border-radius: 4px;
     font-size: 0.85rem;
     color: var(--text-secondary);
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    background: rgba(0, 229, 255, 0.05);
 }
 
 .btn-lang:hover {
     border-color: var(--link-color);
     color: var(--link-color);
+    box-shadow: 0 0 10px var(--glow-color);
+    text-shadow: none;
 }
 
 .contact-info {
@@ -162,12 +198,27 @@ a:hover {
     flex: 1;
     padding: 3rem 4rem;
     max-width: 900px;
+    position: relative;
+    z-index: 1;
 }
 
 section {
     margin-bottom: 3rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 section:last-child {
@@ -179,12 +230,25 @@ section:last-child {
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent-gradient);
+    box-shadow: 0 0 10px var(--glow-color);
 }
 
 h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--link-color);
     margin-bottom: 0.25rem;
 }
 
@@ -205,6 +269,16 @@ h3 {
 
 .content-item {
     margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.content-item:hover {
+    background: rgba(0, 229, 255, 0.03);
+    border-left-color: var(--link-color);
 }
 
 .content-item:last-child {
@@ -227,6 +301,10 @@ ul.list-disc li {
     color: var(--text-primary);
 }
 
+ul.list-disc li::marker {
+    color: var(--link-color);
+}
+
 /* Skills Tags */
 .skills-container {
     display: flex;
@@ -235,12 +313,37 @@ ul.list-disc li {
 }
 
 .skill-tag {
-    background-color: var(--sidebar-bg);
-    color: var(--text-primary);
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--link-color);
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     font-size: 0.9rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: rgba(0, 229, 255, 0.2);
+    box-shadow: 0 0 10px var(--glow-color);
+    transform: translateY(-2px);
+}
+
+/* Scrollbar styling for dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--link-color);
 }
 
 /* Responsive */
